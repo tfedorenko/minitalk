@@ -6,50 +6,39 @@
 /*   By: tfedoren <tfedoren@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 11:31:03 by tfedoren          #+#    #+#             */
-/*   Updated: 2022/05/23 14:45:38 by tfedoren         ###   ########.fr       */
+/*   Updated: 2022/05/23 18:51:36 by tfedoren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-#include <stdio.h>
 
-void	signal_handler(int n)
+static void	bt_function(int k)
 {
 	static int	i;
 	static char	c;
 
-	//i = 0;
-	if (n == SIGUSR1)
+	if (i < 8)
 	{
-		if (i < 8)
-		{
-			c = c + (1 << i);
-			i++;
-		}
-		if (i == 8)
-		{
-			ft_printf("%c", c);
-			c = 0;
-			i = 0;
-		}
+		c = c + (k << i);
+		i++;
 	}
-	else
+	if (i == 8)
 	{
-		if (i < 8)
-		{
-			c = c + (0 << i);
-			i++;
-		}
-		if (i == 8)
-		{
-			ft_printf("%c", c);
-			c = 0;
-			i = 0;
-		}
+		ft_printf("%c", c);
+		c = 0;
+		i = 0;
 	}
 }
 
-int	main(int argc, char **argv)
+static void	signal_handler(int n)
+{
+	if (n == SIGUSR1)
+		bt_function(1);
+	else
+		bt_function(0);
+}
+
+int	main(void)
 {
 	int	pid;
 
