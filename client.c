@@ -6,7 +6,7 @@
 /*   By: tfedoren <tfedoren@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 11:30:57 by tfedoren          #+#    #+#             */
-/*   Updated: 2022/05/23 11:52:08 by tfedoren         ###   ########.fr       */
+/*   Updated: 2022/05/23 14:45:18 by tfedoren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,27 @@
 
 void	loop_char(char c, int pid)
 {
-	int	j;
+	int		j;
+	char	temp;
 
+	temp = c;
 	j = 0;
 	while (j < 8)
 	{
-		if ((c & 1) == 1)
+		if ((temp & 1) == 1)
+		{
 			kill (pid, SIGUSR1);
-		if ((c & 1) == 0)
+			usleep (50);
+		}
+		if ((temp & 1) == 0)
+		{	
 			kill (pid, SIGUSR2);
+			usleep (50);
+		}
+
+		temp = temp >> 1;
 		j++;
 	}
-	j = 0;
 }
 
 int	main(int argc, char **argv)
@@ -39,8 +48,7 @@ int	main(int argc, char **argv)
 	if (argc == 3)
 	{
 		string = argv[2];
-		pid = ft_atoi(argv[2]);
-		ft_printf("%d\n", pid);
+		pid = ft_atoi(argv[1]);
 		if (kill(pid, 0) != 0)
 		{
 			ft_printf("unvalid pid");
