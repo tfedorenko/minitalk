@@ -6,14 +6,13 @@
 /*   By: tfedoren <tfedoren@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 11:30:57 by tfedoren          #+#    #+#             */
-/*   Updated: 2022/05/23 14:45:18 by tfedoren         ###   ########.fr       */
+/*   Updated: 2022/05/23 19:07:51 by tfedoren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-#include <stdio.h>
 
-void	loop_char(char c, int pid)
+static void	loop_char(char c, int pid)
 {
 	int		j;
 	char	temp;
@@ -32,7 +31,6 @@ void	loop_char(char c, int pid)
 			kill (pid, SIGUSR2);
 			usleep (50);
 		}
-
 		temp = temp >> 1;
 		j++;
 	}
