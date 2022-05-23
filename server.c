@@ -12,8 +12,6 @@
 
 #include "minitalk.h"
 #include <stdio.h>
-// #include <readline/readline.h>
-// #include <readline/history.h>
 
 void	signal_handler(int n)
 {
